@@ -1,7 +1,7 @@
 # Alden Weaver
 
-def game_hash
-  game => {
+def game_hash()
+  game =  {
     :home => {
       :team_name => "Brooklyn Nets",
       :colors => ["Black", "White"],
@@ -62,7 +62,7 @@ def game_hash
         :slam_dunks => 1
         },
       ]
-    }
+    },
     
     :away => {
       :team_name => "Charlotte Hornets",
@@ -130,10 +130,50 @@ def game_hash
   return game
 end
 
+# iterates through home & away teams to access players
+# hash then access a specific player
+def get_player_info_by_name(team, name)
+  game_hash[team][players][name]
+end
 
+def get_player_team_by_name(name)
+  for each team in game_hash
+    for each player in players
+      if game_hash[team][players][name] != NIL
+        return team
+    
 
+def num_points_scored(player)
+  team = get_player_team_by_name(player)
+  get_player_info_by_name(team, player)
+end
 
+def shoe_size
+end 
 
+def team_colors
+end
 
+def  team_names
+end
 
+def player_numbers
+end
 
+def player_stats
+end  
+
+def big_shoe_rebounds
+end
+
+def most_points_scored
+end
+  
+def winning_team
+end 
+
+def player_with_longest_name
+end
+
+def long_name_steals_a_ton?
+end
