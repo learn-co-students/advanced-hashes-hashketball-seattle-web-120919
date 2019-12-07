@@ -141,29 +141,58 @@ def get_player_team_by_name(name)
     for each player in players
       if game_hash[team][players][name] != NIL
         return team
-    
+        
+def get_team_by_name(name) 
+  for each team in game_hash
+  if team.name === name
+    return team
+end
 
 def num_points_scored(player)
   team = get_player_team_by_name(player)
   get_player_info_by_name(team, player)
 end
 
-def shoe_size
+def shoe_size(player)
 end 
 
-def team_colors
+def team_colors(team)
+  team_hash = get_team_by_name(team)
+  return team_hash[colors]
 end
 
-def  team_names
+def team_names
+  names = []
+  for each team in game_hash
+  names.push(team)
+  return names  
 end
 
-def player_numbers
+def player_numbers(team)
+  numbers = []
+  team_hash = get_team_by_name(team)
+  for each player in team_hash[players]
+  numbers.push(player[number])
 end
 
-def player_stats
+def player_stats(player)
+  team = get_player_team_by_name(player)
+  player_hash = get_player_info_by_name(team, player)
+  return player_hash
 end  
 
 def big_shoe_rebounds
+  # find player with largest shoe size
+  largest_shoe = 0
+  largest_player = ""
+  for each team get players_hash
+  for each player in [players_hash]
+  if shoe_size(player) > largest_shoe
+    largest_shoe = player.shoe_size
+    largest_player = player
+  
+  # return that player's number of rebounds
+  return largest_player[rebounds]
 end
 
 def most_points_scored
