@@ -132,21 +132,24 @@ end
 
 # iterates through home & away teams to access players
 # hash then access a specific player
-def get_player_info_by_name(team, name)
-  game_hash[team][players][name]
-end
 
-def get_player_team_by_name(name)
+
+def get_team_hash(team_name) 
   for each team in game_hash
-    for each player in players
-      if game_hash[team][players][name] != NIL
-        return team
-        
-def get_team_by_name(name) 
-  for each team in game_hash
-  if team.name === name
+  if team.name === team_name
     return team
 end
+
+def get_player_team(player_name_)
+  for each team in game_hash
+    for each player in players
+      if game_hash[team][player][player_name] === player_name_
+        return team
+  
+def get_player_hash(team_name, player_name)
+  for each player in game_hash[team_name][players]
+  game_hash[team_name][players][name]
+end    
 
 def num_points_scored(player)
   team = get_player_team_by_name(player)
