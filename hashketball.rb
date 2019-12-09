@@ -134,48 +134,6 @@ end
 # hash then access a specific player
 
 
-# def get_team_hash_by_team_name(team_name) 
-#   game_hash.each do | team_hash |
-#   if team_hash.name === team_name
-#     return team_hash
-#   end
-# end
-# end
-
-# Iterates from game_hash to team_hash
-# to players_hash looking for a player by 
-# their name and returning the team hash 
-# that the player is in
-# def get_team_hash_by_player_name(player_name_)
-#     game_hash.each do | team_hash |
-#       team_hash[players].each do | player |
-#       if player[player_name] === player_name_
-#         return team_hash
-#       end
-#     end
-#   end
-# end
-  
-# def get_player_hash(team_name, player_name_)
-#   team_hash = get_team_hash_by_player_name(player_name_)
-#   team_hash[players].each do |player_hash|
-#     if player_hash[player_name] == player_name_
-#       return player_hash
-#     end
-#   end
-# end    
-
-# def num_points_scored(player_name)
-#   # Get the team hash by the name of the player
-#   team_hash = get_team_hash_by_player_name(player_name)
-  
-#   # Get the player_hash 
-#   player_hash = get_player_hash(team_hash, player)
-  
-#   # Return the number of points scored by the player
-#   return player_hash[points]
-# end
-
 def num_points_scored(player_name)
   game_hash.each do |place, team| # |key, value|
     team.each do |attribute, data|
@@ -218,16 +176,41 @@ def team_names
   end
 end
 
-def player_numbers(team)
-  game_hash.map do |place, team|
+def player_numbers(team_name)
+  numbers = []
+  game_hash.each do |place, team|
     if team[:team_name] == team_name
+      team.each do |attributes, data|
+        if attributes == :players
+          data.each do |player|
+            numbers << player[:number]
+          end
+        end
+      end
     end
   end
+  numbers
 end
 
-# def player_stats(player)
-
-# end  
+# Returns a hash of the stats for a player based 
+# on an input of a player's name
+def player_stats(player_name)
+  stats_hash = {}
+  game_hash.each do |place, team|
+    team.each do |attributes, data|
+      if attributes == :players
+        data.each do |player|
+          if player[:player_name] == player_name
+            stats_hash = player.delete_if do |key, value|
+              key == :player_name
+            end
+          end
+        end
+      end
+    end
+  end
+  stats_hash
+end  
 
 # def big_shoe_rebounds
 
