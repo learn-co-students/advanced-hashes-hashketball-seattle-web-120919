@@ -1,5 +1,5 @@
 # Alden Weaver
-
+require "pry"
 def game_hash()
   game =  {
     :home => {
@@ -177,52 +177,60 @@ end
 # end
 
 def num_points_scored(player_name)
-  
+  game_hash.each do |place, team| # |key, value|
+    team.each do |attribute, data|
+      if attribute == :players
+        data.each do |player|
+          if player[:player_name] == player_name
+            return player[:points]
+          end
+        end
+      end
+    end
+  end
 end
 
-# def shoe_size(player)
-# end 
+def shoe_size(player_name)
+  game_hash.each do |place, team| # |key, value|
+    team.each do |attribute, data|
+      if attribute == :players
+        data.each do |player|
+          if player[:player_name] == player_name
+            return player[:shoe]
+          end
+        end
+      end
+    end
+  end
+end 
 
-# def team_colors(team)
-#   team_hash = get_team_hash(team)
-#   return team_hash[colors]
-# end
+def team_colors(team_name)
+  game_hash.each do |place, team|
+    if team[:team_name] == team_name
+      return team[:colors]
+    end
+  end
+end
 
-# def team_names
-#   names = []
-#   game_hash.each do |team_hash|
-#     names.push(team_hash[team_name])
-#   end
-#   return names 
-# end
+def team_names
+  game_hash.map do |place, team|
+    team[:team_name]
+  end
+end
 
-# def player_numbers(team)
-#   numbers = []
-#   team_hash = get_team_by_name(team)
-#   team_hash = get_player_team(player_name_)
-#   team_hash[players].each do |player_hash|
-#   for each player in team_hash[players]
-#   numbers.push(player[number])
-# end
+def player_numbers(team)
+  game_hash.map do |place, team|
+    if team[:team_name] == team_name
+    end
+  end
+end
 
 # def player_stats(player)
-#   team = get_player_team_by_name(player)
-#   player_hash = get_player_info_by_name(team, player)
-#   return player_hash
+
 # end  
 
 # def big_shoe_rebounds
-#   # find player with largest shoe size
-#   largest_shoe = 0
-#   largest_player = ""
-#   for each team get players_hash
-#   for each player in [players_hash]
-#   if shoe_size(player) > largest_shoe
-#     largest_shoe = player.shoe_size
-#     largest_player = player
-  
-#   # return that player's number of rebounds
-#   return largest_player[rebounds]
+
 # end
 
 def most_points_scored
