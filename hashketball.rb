@@ -135,68 +135,84 @@ end
 
 
 def get_team_hash(team_name) 
-  for each team in game_hash
-  if team.name === team_name
-    return team
+  game_hash.each do | team_hash |
+  if team_hash.name === team_name
+    return team_hash
+  end
+end
 end
 
+# Iterates from game_hash to team_hash
+# to players_hash looking for a player by 
+# their name and returning a team name
 def get_player_team(player_name_)
-  for each team in game_hash
-    for each player in players
-      if game_hash[team][player][player_name] === player_name_
-        return team
+    game_hash.each do | team_hash |
+      team_hash[players].each do | player |
+      if game_hash[team][players][player_name] === player_name_
+        return team_hash
+      end
+    end
+  end
+end
   
-def get_player_hash(team_name, player_name)
-  for each player in game_hash[team_name][players]
-  game_hash[team_name][players][name]
+def get_player_hash(team_name, player_name_)
+  team_hash = get_player_team(player_name_)
+  team_hash[players].each do |player_hash|
+    if player_hash[player_name] == player_name_
+      return player_hash
+    end
+  end
 end    
 
 def num_points_scored(player)
-  team = get_player_team_by_name(player)
-  get_player_info_by_name(team, player)
+  team = get_player_team(player)
+  get_player_hash(team, player)
 end
 
 def shoe_size(player)
 end 
 
 def team_colors(team)
-  team_hash = get_team_by_name(team)
+  team_hash = get_team_hash(team)
   return team_hash[colors]
 end
 
 def team_names
   names = []
-  for each team in game_hash
-  names.push(team)
-  return names  
+  game_hash.each do |team_hash|
+    names.push(team_hash[team_name])
+  end
+  return names 
 end
 
-def player_numbers(team)
-  numbers = []
-  team_hash = get_team_by_name(team)
-  for each player in team_hash[players]
-  numbers.push(player[number])
-end
+# def player_numbers(team)
+#   numbers = []
+#   team_hash = get_team_by_name(team)
+#   team_hash = get_player_team(player_name_)
+#   team_hash[players].each do |player_hash|
+#   for each player in team_hash[players]
+#   numbers.push(player[number])
+# end
 
-def player_stats(player)
-  team = get_player_team_by_name(player)
-  player_hash = get_player_info_by_name(team, player)
-  return player_hash
-end  
+# def player_stats(player)
+#   team = get_player_team_by_name(player)
+#   player_hash = get_player_info_by_name(team, player)
+#   return player_hash
+# end  
 
-def big_shoe_rebounds
-  # find player with largest shoe size
-  largest_shoe = 0
-  largest_player = ""
-  for each team get players_hash
-  for each player in [players_hash]
-  if shoe_size(player) > largest_shoe
-    largest_shoe = player.shoe_size
-    largest_player = player
+# def big_shoe_rebounds
+#   # find player with largest shoe size
+#   largest_shoe = 0
+#   largest_player = ""
+#   for each team get players_hash
+#   for each player in [players_hash]
+#   if shoe_size(player) > largest_shoe
+#     largest_shoe = player.shoe_size
+#     largest_player = player
   
-  # return that player's number of rebounds
-  return largest_player[rebounds]
-end
+#   # return that player's number of rebounds
+#   return largest_player[rebounds]
+# end
 
 def most_points_scored
 end
