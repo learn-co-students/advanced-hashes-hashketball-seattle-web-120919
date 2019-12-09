@@ -172,7 +172,7 @@ end
 
 def team_names
   game_hash.map do |place, team|
-    team[:team_name]
+    return team[:team_name]
   end
 end
 
@@ -189,7 +189,7 @@ def player_numbers(team_name)
       end
     end
   end
-  numbers
+  return numbers
 end
 
 # Returns a hash of the stats for a player based 
@@ -209,12 +209,23 @@ def player_stats(player_name)
       end
     end
   end
-  stats_hash
+  return stats_hash
 end  
 
-# def big_shoe_rebounds
-
-# end
+def big_shoe_rebounds
+  largest_shoe = 0
+  rebounds = 0
+  
+  game_hash.each do |team, team_hash|
+    team_hash[:players].each do |player|
+      if player[:shoe] > largest_shoe
+        largest_shoe = player[:shoe]
+        rebounds = player[:rebounds]
+      end
+    end
+  end 
+  return rebounds
+end
 
 def most_points_scored
 end
