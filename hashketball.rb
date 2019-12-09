@@ -134,56 +134,67 @@ end
 # hash then access a specific player
 
 
-def get_team_hash(team_name) 
-  game_hash.each do | team_hash |
-  if team_hash.name === team_name
-    return team_hash
-  end
-end
-end
+# def get_team_hash_by_team_name(team_name) 
+#   game_hash.each do | team_hash |
+#   if team_hash.name === team_name
+#     return team_hash
+#   end
+# end
+# end
 
 # Iterates from game_hash to team_hash
 # to players_hash looking for a player by 
-# their name and returning a team name
-def get_player_team(player_name_)
-    game_hash.each do | team_hash |
-      team_hash[players].each do | player |
-      if game_hash[team][players][player_name] === player_name_
-        return team_hash
-      end
-    end
-  end
-end
+# their name and returning the team hash 
+# that the player is in
+# def get_team_hash_by_player_name(player_name_)
+#     game_hash.each do | team_hash |
+#       team_hash[players].each do | player |
+#       if player[player_name] === player_name_
+#         return team_hash
+#       end
+#     end
+#   end
+# end
   
-def get_player_hash(team_name, player_name_)
-  team_hash = get_player_team(player_name_)
-  team_hash[players].each do |player_hash|
-    if player_hash[player_name] == player_name_
-      return player_hash
-    end
-  end
-end    
+# def get_player_hash(team_name, player_name_)
+#   team_hash = get_team_hash_by_player_name(player_name_)
+#   team_hash[players].each do |player_hash|
+#     if player_hash[player_name] == player_name_
+#       return player_hash
+#     end
+#   end
+# end    
 
-def num_points_scored(player)
-  team = get_player_team(player)
-  get_player_hash(team, player)
+# def num_points_scored(player_name)
+#   # Get the team hash by the name of the player
+#   team_hash = get_team_hash_by_player_name(player_name)
+  
+#   # Get the player_hash 
+#   player_hash = get_player_hash(team_hash, player)
+  
+#   # Return the number of points scored by the player
+#   return player_hash[points]
+# end
+
+def num_points_scored(player_name)
+  
 end
 
-def shoe_size(player)
-end 
+# def shoe_size(player)
+# end 
 
-def team_colors(team)
-  team_hash = get_team_hash(team)
-  return team_hash[colors]
-end
+# def team_colors(team)
+#   team_hash = get_team_hash(team)
+#   return team_hash[colors]
+# end
 
-def team_names
-  names = []
-  game_hash.each do |team_hash|
-    names.push(team_hash[team_name])
-  end
-  return names 
-end
+# def team_names
+#   names = []
+#   game_hash.each do |team_hash|
+#     names.push(team_hash[team_name])
+#   end
+#   return names 
+# end
 
 # def player_numbers(team)
 #   numbers = []
