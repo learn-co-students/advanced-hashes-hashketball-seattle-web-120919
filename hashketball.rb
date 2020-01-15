@@ -1,54 +1,54 @@
 require 'pp'
 require 'pry'
 
-def game_hash
-  { 
+def game_hash 
+  {
     :away => {
       :team_name => "Charlotte Hornets",
       :colors => ["Turquoise", "Purple"],
       :players => [
         {
-          :player_name => "Jeff Adrien",
+          :player_name => "Jeff Adrien", 
           :number => 4,
           :shoe => 18,
           :points => 10,
-          :rebounds => 1,
+          :rebounds => 1,	
           :assists => 1,
-          :steals => 2,
-          :blocks => 7,
+          :steals => 2,	
+          :blocks => 7,	
           :slam_dunks => 2
         }, {
-          :player_name => "Bismack Biyombo",
-          :number => 0,
+          :player_name => "Bismack Biyombo", 
+          :number => 0,	
           :shoe => 16,
-          :points => 12,
+          :points => 12, 
           :rebounds => 4,
           :assists => 7,
           :steals => 22,
           :blocks => 15,
           :slam_dunks => 10
         }, {
-          :player_name => "DeSagna Diop",
+          :player_name => "DeSagna Diop", 
           :number => 2,
           :shoe => 14,
           :points => 24,
-          :rebounds => 12,
+          :rebounds => 12, 
           :assists => 12,
           :steals => 4,
           :blocks => 5,
           :slam_dunks => 5
         }, {
-          :player_name => "Ben Gordon",
+          :player_name => "Ben Gordon", 
           :number => 8,
           :shoe => 15,
-          :points => 33,
+          :points => 33, 
           :rebounds => 3,
           :assists => 2,
           :steals => 1,
           :blocks => 1,
           :slam_dunks => 0
         }, {
-          :player_name => "Kemba Walker",
+          :player_name => "Kemba Walker", 
           :number => 33,
           :shoe => 15,
           :points => 6,
@@ -65,7 +65,7 @@ def game_hash
       :colors => ["Black", "White"],
       :players => [
         {
-          :player_name => "Alan Anderson",
+          :player_name => "Alan Anderson", 
           :number => 0,
           :shoe => 16,
           :points => 22,
@@ -75,7 +75,7 @@ def game_hash
           :blocks => 1,
           :slam_dunks => 1
         }, {
-          :player_name => "Reggie Evans",
+          :player_name => "Reggie Evans", 
           :number => 30,
           :shoe => 14,
           :points => 12,
@@ -85,7 +85,7 @@ def game_hash
           :blocks => 12,
           :slam_dunks => 7
         }, {
-          :player_name => "Brook Lopez",
+          :player_name => "Brook Lopez", 
           :number => 11,
           :shoe => 17,
           :points => 17,
@@ -95,7 +95,7 @@ def game_hash
           :blocks => 1,
           :slam_dunks => 15
         }, {
-          :player_name => "Mason Plumlee",
+          :player_name => "Mason Plumlee", 
           :number => 1,
           :shoe => 19,
           :points => 26,
@@ -105,159 +105,150 @@ def game_hash
           :blocks => 8,
           :slam_dunks => 5
         }, {
-          :player_name => "Jason Terry",
+          :player_name => "Jason Terry", 
           :number => 31,
           :shoe => 15,
           :points => 19,
           :rebounds => 2,
           :assists => 2,
           :steals => 4,
-          :blocks => 11,
+          :blocks => 11, 
           :slam_dunks => 1
         }
       ]
     }
   }
 end
-        
+
+
+def players
+  get_all_players = game_hash[:home][:players] + game_hash[:away][:players]
+  get_all_players #array of hashes of all players
+  #binding.pry
+end 
+
+# def team
+# #   home_team = game_hash[:home]
+# #   away_team = game_hash[:away]
+# #   all_teams = home_team.merge(away_team)
+# # binding.pry
+
+# # get_teams = game_hash[:home] + game_hash[:away]
+# # get_teams 
+# #binding.pry
+
+# end
+
+
+# def stats
+# stats = 
+# end 
 
 def num_points_scored(players_name)
-  game_hash.each do |place, team|
-    team.each do |attribute, data|
-      if attribute == :players
-        data.each do |player|
-        if player[:player_name] == players_name
-          return player[:points]
-        end
-        end
-      end
+  #binding.pry
+  players.each do |player|
+    if player[:player_name] == players_name
+    return player[:points]
+  #take in an argument of a players name and return the number of points scored for that player. 
+# if players[:player_name] = players_name 
+#   players[:points]
+# end
     end
   end
-end 
+end
 
 def shoe_size(players_name)
-  game_hash.each do |place, team|
-    team.each do |attribute, data|
-      if attribute == :players
-        data.each do |player|
-        if player[:player_name] == players_name
-          return player[:shoe]
-        end
-        end
-      end
-    end
-  end
-end 
-
+  players.each do |player| 
+    if player[:player_name] == players_name 
+      return player[:shoe]
+    end 
+  end 
+end
+    
 def team_colors(team_name)
   game_hash.each do |place, team|
-    if team[:team_name] == team_name
-      return team[:colors]
+    if team[:team_name] == team_name 
+    return team[:colors]
     end
-  end 
-end 
-
-def team_names #not using each because we are returning a new #array.
-game_hash.map do |place, team|
-  team[:team_name]
+  #binding.pry
+#binding.pry
+#   if key == team_name 
+#     returns key[:colors]
+#   end
+# end
+# end
   end
-end   
+end
+
+def team_names
+  team_name_array = []
+  game_hash.each do |place, team|
+    team_name_array << team[:team_name]
+  end 
+  team_name_array
+end
+  #operates on the game_hash to return an array of the team names. 
 
 def player_numbers(team_name)
-  nums = []
-  game_hash.each do |place, team|
-    if team[:team_name] == team_name
-      team.each do |attributes, data|
-        if attributes == :players
-          data.each do |player|
-          nums.push(player[:number])
-          end
-        end
-      end
-    end
-  end
-  return nums
-end
-
-def player_stats(players_name)
-new_hash = {}
-game_hash.each do |place, team|
-  team.each do |attributes, data|  #iterate over the team again to #deal with each t
-    if attributes == :players 
-      data.each do |player|
-        if player[:player_name] == players_name
-          new_hash = player.delete_if do |k, v|
-            k == :player_name 
-          end 
-        end  
-      end 
-    end   
-  end
- end 
- new_hash
-end 
-
-def big_shoe_rebounds 
-  big_shoe = 0
-  rebounds = 0
-  game_hash.each do |place, team|
-    team[:players].each do |player|
-      if player[:shoe] > big_shoe
-        big_shoe = player[:shoe]
-        rebounds = player[:rebounds]
-      end
-    end
-  end
-  return rebounds
-end
-
-def most_points_scored 
-  most_points = 0
-  points_holder = ""
-  game_hash.values.each do |team|
-    team[:players].each do |player|
-      if player[:points] > most_points
-        most_points = player[:points] 
-        points_holder = player[:player_name] 
-      end
-    end
-  end
-  return points_holder
-end
+  jersey_array = []
   
-def winning_team 
-  victorious_team = {}
-  game_hash.values.each do |team|
-    team_points = 0
-    team[:players].each do |player|
-      team_points += player[:points]
-    end
-    victorious_team[team[:team_name]] = team_points
+  game_hash.each do |place, team| #binding.pry
+   team.select {|k,v| v == "Charlotte Hornets"}
+   binding.pry
+
+      
+   # binding.pry
+    # # team.each do |new_value, names| #binding.pry
+    #   if team[:team_name] == team_name
+    #    # binding.pry
+    #   jersey_array << team[:players][:number] #teams_name is the keys of team name, then colors, then players
+ #names is name of the teams, then the colors of the teams, then the actual player info of the teams.
+    
+      end
+    
+
+
+jersey_array
   end
-  victorious_team.key(victorious_team.values.max) 
-end
+        # if team[:team_name] == team_name 
+        #   jersey_array << team[:players][:number]
 
-def player_with_longest_name
-  longest_name = []
-  game_hash.values.each do |team|
-    team[:players].each do |player|
-      longest_name << player[:player_name]
-    end
-  end
-longest_name.max_by{|name| name.length}
-end
+    # if team[:team_name] == team_name 
+    #   binding.pry
+    #   jersey_array << team[:players][:number]
+    # end
+   # binding.pry
 
-def long_name_steals_a_ton?
-  longest = {}
-  game_hash.values.each do |team|
-    team[:players].each do |player|
-      longest[player[:player_name]] = player[:steals]
-    end
-  end
+   def player_stats(players_name)
+ stats_hash = {}
 
-max_steals = longest.values.max
-longest[longest.key(max_steals)] == max_steals
 
-end
-  
-  
+   end
+
+
+    
+
+
+
+
+
+
+#         #binding.pry
+#     #   if new_value == team_name 
+#     # return new_value[:colors] 
+
+#     end 
+#   end
+# end
+# end
+
+
+
+
+  #   get_.each do |key, value|
+  #     if [:players][:player_name] = players_name 
+  #       [:players][:points]
+  #     end
+  #   end
+  # end
+
