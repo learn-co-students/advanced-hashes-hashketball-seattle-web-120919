@@ -121,13 +121,22 @@ def game_hash
 end
 
 
-def players
+def players #helper method
   get_all_players = game_hash[:home][:players] + game_hash[:away][:players]
+  #binding.pry
   get_all_players #array of hashes of all players
   #binding.pry
 end 
 
-# def team
+def teams #helper method
+teams_array = []
+
+
+teams_array << game_hash[:home]
+teams_array << game_hash[:away]
+teams_array
+#binding.pry
+end
 # #   home_team = game_hash[:home]
 # #   away_team = game_hash[:away]
 # #   all_teams = home_team.merge(away_team)
@@ -186,6 +195,7 @@ def team_names
     team_name_array << team[:team_name]
   end 
   team_name_array
+  #binding.pry
 end
   #operates on the game_hash to return an array of the team names. 
 
@@ -193,23 +203,37 @@ def player_numbers(team_name)
   jersey_array = []
   
   game_hash.each do |place, team| #binding.pry
-   team.select {|k,v| v == "Charlotte Hornets"}
-   binding.pry
+    if team[:team_name] == team_name
+     # binding.pry
+      team.each do |attributes, data|
+        if attributes == :players
+          data.each do |player|
+            jersey_array << player[:number]
+            #binding.pry
+          end
+        end
+      end 
+    end
+  end
+  jersey_array
+end
+  #  team.select {|k,v| v == "Charlotte Hornets"}
+  #  binding.pry
 
       
    # binding.pry
     # # team.each do |new_value, names| #binding.pry
-    #   if team[:team_name] == team_name
+    #if team[:team_name] == team_name
     #    # binding.pry
     #   jersey_array << team[:players][:number] #teams_name is the keys of team name, then colors, then players
  #names is name of the teams, then the colors of the teams, then the actual player info of the teams.
     
-      end
+      #end
     
 
 
-jersey_array
-  end
+# jersey_array
+#   end
         # if team[:team_name] == team_name 
         #   jersey_array << team[:players][:number]
 
@@ -219,11 +243,94 @@ jersey_array
     # end
    # binding.pry
 
-   def player_stats(players_name)
- stats_hash = {}
+  def player_stats(players_name)
+    stats_hash = {}
+    game_hash.each do |place, team|
+      team.each do |attributes, data|
+        if attributes == :players 
+          data.each do |player|
+            if player[:player_name] == players_name
+              player.delete(:player_name)
+              stats_hash = player
+            end
+          end 
+        end 
+      end 
+    end
+    stats_hash
+  end
+
+  def big_shoe_rebounds
+    # game_hash.values.each do |team|
+    #   binding.pry
+    #   team.each do |attributes, data| 
+    #     binding.pry
+    #     if attributes == :players 
+    #       #binding.pry
+    #      data.max_by{|k| k[:shoe]}[:rebounds]
+    #       binding.pry
+    #      #binding.pry
+          
+    #     end
+    #   end
+    # end
+
+    players.max_by{|k| k[:shoe]}[:rebounds]
+
+  end
+
+  def most_points_scored
+    players.max_by{|k| k[:points]}[:player_name]
+
+  end
+
+  def player_with_longest_name
+    players.max_by{|k| k[:player_name].length}[:player_name]
 
 
-   end
+
+  end
+
+def winning_team 
+    brooklyn_nets_total = 0
+    charlotte_hornets_total = 0
+  game_hash.each do |place, team|
+    if team[:team_name] == "Charlotte Hornets"
+      team[:players].each do |player| 
+        charlotte_hornets_total += player[:points]
+    end
+    else 
+      team[:players].each do |player| 
+        brooklyn_nets_total += player[:points]
+        #binding.pry
+    end
+    end 
+  end
+  if charlotte_hornets_total > brooklyn_nets_total
+    return "Charlotte Hornets"
+  else
+    return "Brooklyn Nets"
+  end
+end
+
+
+
+  def most_steals
+    players.max_by{|k| k[:steals]}[:player_name]
+  end
+
+def long_name_steals_a_ton?
+    if most_steals == player_with_longest_name
+    return true 
+    else 
+    return false
+    end
+end
+  
+    
+    #First, find the player with the largest shoe size
+    #Then, return that player's number of rebounds
+    #Remember to think about return values here.
 
 
     
