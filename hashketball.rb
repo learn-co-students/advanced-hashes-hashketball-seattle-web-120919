@@ -242,9 +242,9 @@ end
 # we compare the two teams and set a contion to display the correct team with the most points
 def winning_team
   if home_team_score > away_team_score
-    return game_hash[:home][:team_name]
+    game_hash[:home][:team_name]
   else
-    return game_hash[:away][:team_name]
+    game_hash[:away][:team_name]
   end
 end
 
